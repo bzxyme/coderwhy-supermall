@@ -4,11 +4,16 @@
     <nav-bar class="home-nav">
       <template v-slot:center><div>购物街</div></template>
     </nav-bar>
+    <home-swiper :banners="banners"/>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
+import HomeSwiper from "./childComponents/HomeSwiper.vue";
+
+// import Home from ''
+
 import { getHomeMultidata } from "network/home";
 
 //import x from ''
@@ -17,13 +22,14 @@ import { getHomeMultidata } from "network/home";
 export default {
   name: "home",
   components: {
-    NavBar
+    NavBar,
+    HomeSwiper
     // NavBar
   },
   data() {
     return {
-      banner: [],
-      recommend: []
+      banners: [],
+      recommends: []
     };
   },
   computed: {},
@@ -34,8 +40,8 @@ export default {
       .then(result => {
         console.log(result);
         // this.result = result;
-        this.banner = result.data.banner.list;
-        this.recommend = result.data.recommend.list;
+        this.banners = result.data.banner.list;
+        this.recommends = result.data.recommend.list;
       })
       .catch(err => {});
   },

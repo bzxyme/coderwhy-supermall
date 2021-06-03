@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .tar-bar-item {
   flex: 1;
   text-align: center;
