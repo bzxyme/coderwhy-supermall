@@ -7,11 +7,76 @@
     <home-swiper :banners="banners" />
     <recommend-view :recommends="recommends" />
     <feature-view />
+    <tab-control :titles="['流行', '新款', '精选']" class="tab-control" />
+    <ul>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+      <li class="11">11</li>
+    </ul>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
+import TabControl from "../../components/content/tabControl/TabControl.vue";
+
 import HomeSwiper from "./childComponents/HomeSwiper.vue";
 import RecommendView from "./childComponents/RecommendView.vue";
 import FeatureView from "./childComponents/FeatureView.vue";
@@ -29,7 +94,8 @@ export default {
     NavBar,
     HomeSwiper,
     RecommendView,
-    FeatureView
+    FeatureView,
+    TabControl
     // NavBar
   },
   data() {
@@ -68,5 +134,9 @@ export default {
   right: 0;
   top: 0;
   z-index: 9;
+}
+.tab-control {
+  position: sticky;
+  top: 44px;
 }
 </style>
