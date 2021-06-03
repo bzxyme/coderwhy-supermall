@@ -4,13 +4,15 @@
     <nav-bar class="home-nav">
       <template v-slot:center><div>购物街</div></template>
     </nav-bar>
-    <home-swiper :banners="banners"/>
+    <home-swiper :banners="banners" />
+    <recommend-view :recommends="recommends"/>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
 import HomeSwiper from "./childComponents/HomeSwiper.vue";
+import RecommendView from "./childComponents/RecommendView.vue";
 
 // import Home from ''
 
@@ -23,7 +25,8 @@ export default {
   name: "home",
   components: {
     NavBar,
-    HomeSwiper
+    HomeSwiper,
+    RecommendView
     // NavBar
   },
   data() {
