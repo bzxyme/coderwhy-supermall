@@ -18,16 +18,32 @@ export default {
       scroll: null
     };
   },
+  props: {
+    probeType: {
+      type: Number,
+      default: 0
+    }
+  },
   mounted() {
-    scroll = new BScroll(this.$refs.wrapper, {
-      probeType: 2,
+    this.scroll = new BScroll(this.$refs.wrapper, {
+      probeType: this.probeType,
       click: true,
       mouseWheel: true,
       observeDOM: true
     });
+    // console.log(scroll);
+    // this.scroll.scrollTo(0, 0);
+    this.scroll.on("scroll", position => {
+      // console.log(position);
+      this.$emit("scrollPosition", position);
+    });
   },
   computed: {},
-  methods: {}
+  methods: {
+    scrollTo(x, y, time = 300) {
+      this.scroll.scrollTo(x, y, time);
+    }
+  }
 };
 </script>
 

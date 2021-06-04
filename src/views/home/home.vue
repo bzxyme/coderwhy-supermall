@@ -4,7 +4,12 @@
     <nav-bar class="home-nav">
       <template v-slot:center><div>购物街</div></template>
     </nav-bar>
-    <scroll class="content">
+    <scroll
+      class="content"
+      ref="scroll"
+      :probe-type="3"
+      @scrollPosition="getScrollPosition"
+    >
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -15,6 +20,7 @@
       />
       <goods-list :goods="showGoods" />
     </scroll>
+    <back-top @click="BackTopClick" v-show="isShow" />
   </div>
 </template>
 
@@ -24,17 +30,13 @@ import Scroll from "components/common/scroll/Scroll.vue";
 
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodsList from "components/content/goods/GoodsList.vue";
+import BackTop from "components/content/backTop/BackTop.vue";
 
 import HomeSwiper from "./childComponents/HomeSwiper.vue";
 import RecommendView from "./childComponents/RecommendView.vue";
 import FeatureView from "./childComponents/FeatureView.vue";
 
-// import Home from ''
-
 import { getHomeMultidata, getHomeGoods } from "network/home";
-
-//import x from ''
-// import NavBar from 'components/common/navbar/NavBar'
 
 export default {
   name: "home",
@@ -45,7 +47,8 @@ export default {
     FeatureView,
     TabControl,
     GoodsList,
-    Scroll
+    Scroll,
+    BackTop
     // NavBar
   },
   data() {
@@ -57,7 +60,8 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      currentType: "pop"
+      currentType: "pop",
+      isShow: false
     };
   },
   computed: {
@@ -120,6 +124,14 @@ export default {
           this.currentType = "sell";
           break;
       }
+    },
+    BackTopClick() {
+      // console.log();
+      this.$refs.scroll.scrollTo(0, 0);
+    },
+    getScrollPosition(position) {
+      // console.log(position);
+      this.isShow = position.y <= -1000;
     }
   }
 };
