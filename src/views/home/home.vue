@@ -8,74 +8,15 @@
     <recommend-view :recommends="recommends" />
     <feature-view />
     <tab-control :titles="['流行', '新款', '精选']" class="tab-control" />
-    <ul>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-      <li class="11">11</li>
-    </ul>
+    <goods-list :goods="goods['pop'].list" />
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
-import TabControl from "../../components/content/tabControl/TabControl.vue";
+
+import TabControl from "components/content/tabControl/TabControl.vue";
+import GoodsList from "components/content/goods/GoodsList.vue";
 
 import HomeSwiper from "./childComponents/HomeSwiper.vue";
 import RecommendView from "./childComponents/RecommendView.vue";
@@ -83,7 +24,7 @@ import FeatureView from "./childComponents/FeatureView.vue";
 
 // import Home from ''
 
-import { getHomeMultidata } from "network/home";
+import { getHomeMultidata, getHomeGoods } from "network/home";
 
 //import x from ''
 // import NavBar from 'components/common/navbar/NavBar'
@@ -95,29 +36,58 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    TabControl
+    TabControl,
+    GoodsList
     // NavBar
   },
   data() {
     return {
       banners: [],
-      recommends: []
+      recommends: [],
+      goods: {
+        pop: { page: 0, list: [] },
+        new: { page: 0, list: [] },
+        sell: { page: 0, list: [] }
+      }
     };
   },
   computed: {},
   //组件一创建完就请求数据 利用生命周期函数
   created() {
     //请求多个数据
-    getHomeMultidata()
-      .then(result => {
-        console.log(result);
-        // this.result = result;
-        this.banners = result.data.banner.list;
-        this.recommends = result.data.recommend.list;
-      })
-      .catch(err => {});
+    this.getHomeMultidata();
+
+    this.getHomeGoods("pop");
+
+    this.getHomeGoods("new");
+
+    this.getHomeGoods("sell");
   },
-  methods: {}
+  methods: {
+    getHomeMultidata() {
+      getHomeMultidata()
+        .then(result => {
+          // console.log(result);
+          // this.result = result;
+          this.banners = result.data.banner.list;
+          this.recommends = result.data.recommend.list;
+        })
+        .catch(err => {});
+    },
+
+    getHomeGoods(type) {
+      // console.log(this.goods[type]);
+      const page = this.goods[type].page + 1;
+      getHomeGoods(type, page)
+        .then(result => {
+          console.log(result);
+          this.goods[type].page = result.data.page;
+          this.goods[type].list.push(...result.data.list);
+          console.log(this.goods[type].list);
+        })
+        .catch(err => {});
+    }
+  }
 };
 </script>
 

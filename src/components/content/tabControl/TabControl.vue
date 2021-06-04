@@ -53,6 +53,7 @@ export default {
   text-align: center;
   font-size: 16px;
   background-color: #fff;
+  z-index: 9;
 }
 .tab-control-item {
   flex: 1;
