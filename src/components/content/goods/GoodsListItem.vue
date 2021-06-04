@@ -1,14 +1,12 @@
 <!-- 组件说明 -->
 <template>
   <div class="goods-item">
-    <a href="#">
-      <img :src="goodsItem.show.img" alt="" />
-      <div class="goods-info">
-        <p>{{ goodsItem.title }}</p>
-        <span class="price">价格：{{ goodsItem.price }}</span>
-        <span class="collect">{{ goodsItem.cfav }}</span>
-      </div>
-    </a>
+    <img :src="goodsItem.show.img" alt="" />
+    <div class="goods-info">
+      <p>{{ goodsItem.title }}</p>
+      <span class="price">价格：{{ goodsItem.price }}</span>
+      <span class="collect">{{ goodsItem.cfav }}</span>
+    </div>
   </div>
 </template>
 
