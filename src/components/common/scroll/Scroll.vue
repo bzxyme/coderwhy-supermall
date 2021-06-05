@@ -22,6 +22,10 @@ export default {
     probeType: {
       type: Number,
       default: 0
+    },
+    pullUpLoad: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -29,19 +33,37 @@ export default {
       probeType: this.probeType,
       click: true,
       mouseWheel: true,
-      observeDOM: true
+      observeDOM: true,
+      pullUpLoad: this.pullUpLoad
     });
     // console.log(scroll);
     // this.scroll.scrollTo(0, 0);
+
+    /**
+     * 监听滚动事件
+     */
     this.scroll.on("scroll", position => {
       // console.log(position);
       this.$emit("scrollPosition", position);
+    });
+    /**
+     * 监听上啦事件
+     */
+    this.scroll.on("pullingUp", () => {
+      // console.log("上啦加载更多");
+      this.$emit("pullingUp");
     });
   },
   computed: {},
   methods: {
     scrollTo(x, y, time = 300) {
-      this.scroll.scrollTo(x, y, time);
+      this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time);
+    },
+    finishPullUp() {
+      this.scroll && this.scroll.finishPullUp && this.scroll.finishPullUp();
+    },
+    refresh() {
+      this.scroll && this.scroll.refresh && this.scroll.refresh();
     }
   }
 };

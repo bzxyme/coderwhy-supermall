@@ -1,7 +1,7 @@
 <!-- 组件说明 -->
 <template>
   <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="" />
+    <img :src="goodsItem.show.img" alt="" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">价格：{{ goodsItem.price }}</span>
@@ -27,7 +27,15 @@ export default {
     return {};
   },
   computed: {},
-  methods: {}
+  methods: {
+    imgLoad() {
+      // console.log('1111');
+      // this.$emit('')
+      //事件总线
+      this.$bus.emit("itemImgLoad");
+      // console.log(this.$bus);
+    }
+  }
 };
 </script>
 

@@ -9,6 +9,8 @@
       ref="scroll"
       :probe-type="3"
       @scrollPosition="getScrollPosition"
+      :pull-up-load="true"
+      @pullingUp="loadMore"
     >
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
@@ -80,6 +82,13 @@ export default {
 
     this.getHomeGoods("sell");
   },
+  mounted() {
+    //监听事件总线
+    this.$bus.on("itemImgLoad", () => {
+      console.log("---------");
+      this.$refs.scroll.refresh();
+    });
+  },
   methods: {
     /**
      * 网络请求相关的方法
@@ -104,6 +113,9 @@ export default {
           this.goods[type].page = result.data.page;
           this.goods[type].list.push(...result.data.list);
           // console.log(this.goods[type].list);
+
+          this.$refs.scroll.finishPullUp();
+          // this.$refs.scroll.refresh();
         })
         .catch(err => {});
     },
@@ -132,6 +144,10 @@ export default {
     getScrollPosition(position) {
       // console.log(position);
       this.isShow = position.y <= -1000;
+    },
+    loadMore() {
+      // console.log("上拉加载更多");
+      this.getHomeGoods(this.currentType);
     }
   }
 };
