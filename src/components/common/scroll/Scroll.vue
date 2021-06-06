@@ -63,6 +63,7 @@ export default {
       this.scroll && this.scroll.finishPullUp && this.scroll.finishPullUp();
     },
     refresh() {
+      console.log('------');
       this.scroll && this.scroll.refresh && this.scroll.refresh();
     }
   }

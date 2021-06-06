@@ -39,6 +39,7 @@ import RecommendView from "./childComponents/RecommendView.vue";
 import FeatureView from "./childComponents/FeatureView.vue";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
+import { debounce } from "common/utils.js";
 
 export default {
   name: "home",
@@ -84,9 +85,12 @@ export default {
   },
   mounted() {
     //监听事件总线
+    const refresh = debounce(this.$refs.scroll.refresh);
+
     this.$bus.on("itemImgLoad", () => {
-      console.log("---------");
-      this.$refs.scroll.refresh();
+      // console.log("---------");
+      // this.$refs.scroll.refresh();
+      refresh();
     });
   },
   methods: {
@@ -148,7 +152,7 @@ export default {
     loadMore() {
       // console.log("上拉加载更多");
       this.getHomeGoods(this.currentType);
-    }
+    },
   }
 };
 </script>
