@@ -42,17 +42,21 @@ export default {
     /**
      * 监听滚动事件
      */
-    this.scroll.on("scroll", position => {
-      // console.log(position);
-      this.$emit("scrollPosition", position);
-    });
+    if (this.probeType === 2 || this.probeType === 3) {
+      this.scroll.on("scroll", position => {
+        // console.log(position);
+        this.$emit("scrollPosition", position);
+      });
+    }
     /**
      * 监听上啦事件
      */
-    this.scroll.on("pullingUp", () => {
-      // console.log("上啦加载更多");
-      this.$emit("pullingUp");
-    });
+    if (this.pullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        // console.log("上啦加载更多");
+        this.$emit("pullingUp");
+      });
+    }
   },
   computed: {},
   methods: {
@@ -63,8 +67,14 @@ export default {
       this.scroll && this.scroll.finishPullUp && this.scroll.finishPullUp();
     },
     refresh() {
-      console.log('------');
+      // console.log("------");
       this.scroll && this.scroll.refresh && this.scroll.refresh();
+    },
+    finishPullUp() {
+      this.scroll && this.scroll.finishPullUp();
+    },
+    getScrollY() {
+      return this.scroll ? this.scroll.y : 0;
     }
   }
 };

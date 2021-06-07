@@ -1,13 +1,20 @@
 <template>
-  <router-view></router-view>
+  <!-- <keep-alive>
+    <router-view />
+  </keep-alive> -->
+
+<router-view v-slot="{ Component }">
+  <keep-alive>
+    <component :is="Component" />
+  </keep-alive>
+</router-view>
+
   <main-tab-bar />
   <!-- <h2>wode </h2> -->
 </template>
 
 <script>
 import MainTabBar from "components/content/MainTabBar/MainTabBar.vue";
-
-
 
 export default {
   name: "App",

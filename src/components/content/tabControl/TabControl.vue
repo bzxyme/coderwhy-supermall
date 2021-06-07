@@ -33,15 +33,11 @@ export default {
       currentIndex: 0
     };
   },
-  computed: {
-    showActive() {
-      return index == currentIndex;
-    }
-  },
+  computed: {},
   methods: {
     itemClick(index) {
       this.currentIndex = index;
-      this.$emit('tabClick',index)
+      this.$emit("tabClick", index);
     }
   }
 };
