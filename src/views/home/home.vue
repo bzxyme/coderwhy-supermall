@@ -63,21 +63,30 @@ export default {
   },
   data() {
     return {
+      //home页轮播图
       banners: [],
+      //home页推荐图片
       recommends: [],
+      //home页下拉信息
       goods: {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
+      //判断下拉类型
       currentType: "pop",
+      //上拉返回显示隐藏
       isShow: false,
+      //home control距顶部距离
       tabOffTabTop: 0,
+      //下拉时home页 control显示隐藏
       isTabFixde: false,
+      //
       saveY: 0
     };
   },
   computed: {
+    //goods列表传子组件
     showGoods() {
       return this.goods[this.currentType].list;
     }
@@ -100,6 +109,7 @@ export default {
     this.$bus.on("itemImgLoad", () => {
       // console.log("---------");
       // this.$refs.scroll.refresh();
+      //刷新高度
       refresh();
     });
 
