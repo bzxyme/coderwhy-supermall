@@ -2,7 +2,7 @@
 <template>
   <div id="detail">
     <detail-nav-bar />
-    <detail-swiper :top-images='topImages' />
+    <detail-swiper :top-images="topImages" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import DetailNavBar from "./childComps/DetailNavBar.vue";
 import DetailSwiper from "./childComps/DetailSwiper.vue";
 
-import { getDetail } from "network/detail";
+import { getDetail, Goods } from "network/detail";
 
 //import x from ''
 export default {
@@ -19,7 +19,8 @@ export default {
   data() {
     return {
       iid: null,
-      topImages: []
+      topImages: [],
+      goods: null
     };
   },
   created() {
@@ -31,9 +32,20 @@ export default {
     // console.log(getDetail(this.iid));
     getDetail(this.iid)
       .then(result => {
-        console.log(result);
-        console.log(result.result.itemInfo.topImages);
-        this.topImages = result.result.itemInfo.topImages;
+        //获取详情页轮播图
+        // console.log(result);
+        const data = result.result;
+        // console.log(data);
+        // console.log(data.result.itemInfo.topImages);
+        this.topImages = data.itemInfo.topImages;
+
+        //获取商品信息
+        // console.log(data.itemInfo);
+        this.goods = new Goods(
+          data.itemInfo,
+          data.columns,
+          data.shopInfo.services
+        );
       })
       .catch(err => {});
   },

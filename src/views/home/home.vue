@@ -116,12 +116,12 @@ export default {
     // console.log(this.$refs.tabControl.$el.offsetTop);
   },
   activated() {
-    // console.log("-----");
-    // this.$refs.scroll.scrollTo(0, this.saveY, 0);
+    console.log("-----");
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
   },
   deactivated() {
-    // console.log("-------");
-    // this.saveY = this.$refs.scroll.getScrollY();
+    console.log("-------");
+    this.saveY = this.$refs.scroll.getScrollY();
   },
   methods: {
     /**

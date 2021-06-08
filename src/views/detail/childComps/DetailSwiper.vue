@@ -3,14 +3,22 @@
 组件说明:详情页轮播图
 
  -->
-<template> </template>
+<template>
+  <swiper class="detail-swiper">
+    <swiper-item v-for="(item, index) in topImages" :key="index">
+      <img :src="item" alt="" />
+      <!-- <a :href="item.lin"></a> -->
+    </swiper-item>
+  </swiper>
+</template>
 
 <script>
 import { Swiper, SwiperItem } from "components/common/swiper/index";
+
 //import x from ''
 export default {
   name: "DetailSwiper",
-  components: {},
+  components: { Swiper, SwiperItem },
   data() {
     return {};
   },
@@ -25,4 +33,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.detail-swiper {
+  height: 300px;
+  overflow: hidden;
+}
+</style>
