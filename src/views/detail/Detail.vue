@@ -9,6 +9,7 @@
       <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
       <detail-param-info :param-info="paramInfo" />
       <detail-comment-info :commentInfo="commentInfo" />
+      <!-- <goods-list :goods='Recommend'/> -->
     </scroll>
   </div>
 </template>
@@ -22,9 +23,17 @@ import DetailGoodsInfo from "./childComps/DetailGoodsInfo.vue";
 import DetailParamInfo from "./childComps/DetailParamInfo.vue";
 import DetailCommentInfo from "./childComps/DetailCommentInfo.vue";
 
+import GoodsList from "../../components/content/goods/GoodsList.vue";
+
 import Scroll from "components/common/scroll/Scroll.vue";
 
-import { getDetail, Goods, Shop, GoodsParam } from "network/detail";
+import {
+  getDetail,
+  getRecommend,
+  Goods,
+  Shop,
+  GoodsParam
+} from "network/detail";
 
 //import x from ''
 export default {
@@ -37,7 +46,8 @@ export default {
     Scroll,
     DetailGoodsInfo,
     DetailParamInfo,
-    DetailCommentInfo
+    DetailCommentInfo,
+    GoodsList
   },
   data() {
     return {
@@ -47,7 +57,8 @@ export default {
       shop: {},
       detailInfo: {},
       paramInfo: {},
-      commentInfo: {}
+      commentInfo: {},
+      Recommend: []
     };
   },
   created() {
@@ -62,7 +73,7 @@ export default {
         //获取详情页轮播图
         // console.log(result);
         const data = result.result;
-        console.log(data);
+        // console.log(data);
         // console.log(data.result.itemInfo.topImages);
         this.topImages = data.itemInfo.topImages;
 
@@ -88,6 +99,12 @@ export default {
         if (data.rate.cRate != 0) {
           this.commentInfo = data.rate.list[0];
         }
+        getRecommend()
+          .then(result => {
+            this.Recommend = result.data.list;
+            console.log(this.Recommend);
+          })
+          .catch(err => {});
       })
       .catch(err => {});
   },

@@ -9,6 +9,13 @@ export function getDetail(iid) {
   });
 }
 
+//推荐数据
+export function getRecommend(){
+  return request({
+    url:'/recommend'
+  })
+}
+
 /**
  * 对复杂数据重新封装成可以简单利用的类，创建对象进行使用
  */

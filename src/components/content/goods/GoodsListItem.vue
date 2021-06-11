@@ -1,7 +1,7 @@
 <!-- 组件说明 -->
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" @load="imgLoad" />
+    <img :src="showImage" alt="" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">价格：{{ goodsItem.price }}</span>
@@ -26,7 +26,11 @@ export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    showImage(){
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
   methods: {
     imgLoad() {
       // console.log('1111');
