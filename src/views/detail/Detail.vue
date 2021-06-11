@@ -2,10 +2,12 @@
 <template>
   <div id="detail">
     <detail-nav-bar class="detail-nav" />
-    <scroll class="detail-content">
+    <scroll class="detail-content" ref="scroll">
       <detail-swiper :top-images="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
+      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
+      <detail-param-info :param-info='paramInfo'/>
     </scroll>
   </div>
 </template>
@@ -15,10 +17,12 @@ import DetailNavBar from "./childComps/DetailNavBar.vue";
 import DetailSwiper from "./childComps/DetailSwiper.vue";
 import DetailShopInfo from "./childComps/DetailShopInfo.vue";
 import DetailBaseInfo from "./childComps/DetailBaseInfo.vue";
+import DetailGoodsInfo from "./childComps/DetailGoodsInfo.vue";
+import DetailParamInfo from "./childComps/DetailParamInfo.vue";
 
 import Scroll from "components/common/scroll/Scroll.vue";
 
-import { getDetail, Goods, Shop } from "network/detail";
+import { getDetail, Goods, Shop, GoodsParam } from "network/detail";
 
 //import x from ''
 export default {
@@ -28,14 +32,18 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
-    Scroll
+    Scroll,
+    DetailGoodsInfo,
+    DetailParamInfo
   },
   data() {
     return {
       iid: null,
       topImages: [],
       goods: {},
-      shop: {}
+      shop: {},
+      detailInfo: {},
+      paramInfo: {}
     };
   },
   created() {
@@ -50,7 +58,7 @@ export default {
         //获取详情页轮播图
         // console.log(result);
         const data = result.result;
-        // console.log(data);
+        console.log(data);
         // console.log(data.result.itemInfo.topImages);
         this.topImages = data.itemInfo.topImages;
 
@@ -64,11 +72,24 @@ export default {
 
         //获取店铺信息
         this.shop = new Shop(data.shopInfo);
+
+        //获取详情展示图片
+        this.detailInfo = data.detailInfo;
+
+        //获取详情商品信息
+        this.paramInfo = new GoodsParam(
+          data.itemParams.info,
+          data.itemParams.rule
+        );
       })
       .catch(err => {});
   },
   computed: {},
-  methods: {}
+  methods: {
+    imageLoad() {
+      this.$refs.scroll.refresh();
+    }
+  }
 };
 </script>
 
